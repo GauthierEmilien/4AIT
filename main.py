@@ -1,4 +1,5 @@
 from sentences import RULES, TAGS, NEGATION, CONJUNCTION
+from numpy import array
 import unidecode
 import string
 
@@ -17,10 +18,11 @@ def userTalk():
 
         userText = str(input("Entrez une phrase : "))
         formattedText = formatText(userText)
-        detectMultipleConjunction(formattedText)
-        # detectRule(formatText(userText))
+        sentences = array(detectMultipleConjunction(formattedText)).ravel().tolist()
+        detectRule(sentences)
 
 
+# format user entry (unaccented, no punctuation)
 def formatText(text: str):
     unaccentedStr = ' '.join(unidecode.unidecode(text).split("'"))
     formattedStr = unaccentedStr.translate(
@@ -28,29 +30,18 @@ def formatText(text: str):
     return formattedStr
 
 
-def detectMultipleConjunction(text: [str]):
-    hasConj = False
-    for word in text[0].split():
-        if ' ' + word + ' ' in CONJUNCTION:
-            hasConj = True
-    if hasConj:
-        return text
-    
-    # for conj in CONJUNCTION:
-    #     splitted = text.split(conj)
-    #     for sentence in splitted:
-    #         detectMultipleConjunction(sentence)
-        
+# detect conjunction in user entry and divide it in multiple sub-sentences
+def detectMultipleConjunction(text: str):
+    for conj in CONJUNCTION:
+        splitted = text.split(conj)
+        if (len(splitted) > 1):
+            for i in range(len(splitted)):
+                splitted[i] = detectMultipleConjunction(splitted[i])
+            return splitted
+    return splitted
 
 
-
-# check if conjunction is in sentence
-# def checkConjunction(sentences: [str], conj: str):
-#     for sentence in sentences:
-#         checkConjunction(sentence.split(conj), conj)
-
-
-def detectRule(text: str):
+def detectRule(sentences: [str]):
     # first way
     # for word in text.split(' '):
     #     print('word => ', word)
@@ -61,10 +52,11 @@ def detectRule(text: str):
     #             memorize(tag, True)
 
     # second way (works better)
-    neg = checkNegation(text.split(' '))
-    for key, value in TAGS.items():
-        if (value in text):
-            memorize(key, neg)
+    for sentence in sentences:
+        neg = checkNegation(sentence.split(' '))
+        for key, value in TAGS.items():
+            if (value in sentence):
+                memorize(key, neg)
 
 
 # check if negation is in sentence
