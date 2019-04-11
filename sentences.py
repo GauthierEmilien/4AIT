@@ -1,24 +1,3 @@
-# import json
-
-# SENTENCES = [
-#     [
-#         ["bonjour", "salut"],
-#         ["hey"]
-#     ],
-#     [
-#         ["réserver", "reserver", "reservation"],
-#         ["Oui, où souhaitez vous aller ?"]
-#     ],
-# ]
-
-# COUNTRY = ['France', 'Angleterre', 'Italie', 'Espagne', 'Allemagne', 'Suisse',
-#            ['Etats-Unis', 'Etats Unis'], ['Pérou', 'Perou'], ['Brésil', 'Bresil'],
-#            'Chine', 'Japon', 'Maroc', 'Islande', 'Danemark', 'Finland', [
-#                'Suede', 'Suède'],
-#            'Canada', 'Argentine', 'Australie', 'Russie', [
-#                'Mexique', 'Méxique'], 'Belgique',
-#            ['Grece', 'Grèce'], 'Portugal']
-
 """ ALL WHITESPACE BEFORE WORDS ARE VERY IMPORTANT, DO NOT DELETE THEM"""
 
 TAGS = {
@@ -73,7 +52,7 @@ NEGATION = ['pas', 'sans']
 
 CONJUNCTION = [' mais ', ' ou ', ' et ']
 
-RULES = [
+CITIES = [
     {
         'where': 'paris',
         'tags': [
