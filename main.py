@@ -1,5 +1,5 @@
 from sentences import CITIES, TAGS, NEGATION, CONJUNCTION
-from text_format import formatText, checkNegation, detectMultipleConjunction
+from text_format import formatText, checkNegation, detectMultipleConjunction, flattenList
 from bot import Bot
 from numpy import array
 
@@ -19,12 +19,11 @@ def userTalk():
         bot.setPreferedCities()
         for city in bot.getPreferedCities():
             print(city['city']['where'])
-        # botTalk()
+        bot.talk(userText)
 
         userText = str(input("> "))
         formattedText = formatText(userText)
-        sentences = array(detectMultipleConjunction(
-            formattedText)).ravel().tolist()
+        sentences = flattenList(detectMultipleConjunction(formattedText), [])
 
 
 main()

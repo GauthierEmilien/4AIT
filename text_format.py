@@ -22,6 +22,16 @@ def detectMultipleConjunction(text: str):
     return splitted
 
 
+# prend une liste a N dimension et la retourne en liste a une seule dimension
+def flattenList(ndlist: list, outputList: list):
+    for elem in ndlist:
+        if isinstance(elem, list):
+            outputList = flattenList(elem, outputList)
+        else:
+            outputList.append(elem)
+    return outputList
+
+
 # check if negation is in sentence
 def checkNegation(text: [str]):
     for neg in NEGATION:

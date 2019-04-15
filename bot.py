@@ -6,22 +6,22 @@ from text_format import checkNegation
 class Bot:
     def __init__(self):
         self.__memory: dict = {}
-        self.__citiesPreferences = []
+        self.__preferedCities = []
 
     def memorize(self, tag: str, result: str):
         self.__memory[tag] = result
         print(self.__memory)
 
     def getPreferedCities(self):
-        maxValue = self.__citiesPreferences[0]['preference']
-        preferedCities = [self.__citiesPreferences[0]]
-        for i in range(1, len(self.__citiesPreferences)):
-            if self.__citiesPreferences[i]['preference'] == maxValue:
-                preferedCities.append(self.__citiesPreferences[i])
-        return preferedCities
+        # maxValue = self.__citiesPreferences[0]['preference']
+        # preferedCities = [self.__citiesPreferences[0]]
+        # for i in range(1, len(self.__citiesPreferences)):
+        #     if self.__citiesPreferences[i]['preference'] == maxValue:
+        #         preferedCities.append(self.__citiesPreferences[i])
+        return self.__preferedCities
 
     def setPreferedCities(self):
-        self.__citiesPreferences = []
+        citiesPreferences = []
         for city in CITIES:
             preference = 0
 
@@ -31,11 +31,17 @@ class Bot:
                 elif not value and TAGS[tag] not in city['tags']:
                     preference += 1
 
-            self.__citiesPreferences.append(
+            citiesPreferences.append(
                 {'city': city, 'preference': preference})
 
-        self.__citiesPreferences = sorted(
-            self.__citiesPreferences, key=itemgetter('preference'), reverse=True)
+        citiesPreferences = sorted(
+            citiesPreferences, key=itemgetter('preference'), reverse=True)
+
+        maxValue = citiesPreferences[0]['preference']
+        self.__preferedCities = [citiesPreferences[0]]
+        for i in range(1, len(citiesPreferences)):
+            if citiesPreferences[i]['preference'] == maxValue:
+                self.__preferedCities.append(citiesPreferences[i])
 
     def detectRule(self, sentences: [str]):
         # first way
@@ -53,3 +59,17 @@ class Bot:
             for key, value in TAGS.items():
                 if (value in sentence):
                     self.memorize(key, neg)
+
+    def canSuggest(self):
+        if len(self.__preferedCities) <= 2:
+            return True
+        return False
+
+    def talk(self, userText):
+        if self.canSuggest():
+            print('BOT>Je peux vous proposer', end=' ')
+            for index, city in enumerate(self.__preferedCities):
+                print(city['city']['where'], end=' ')
+                if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
+                    print('ou', end=' ')
+            print()
