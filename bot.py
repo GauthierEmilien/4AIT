@@ -1,6 +1,7 @@
 from operator import itemgetter
-from sentences import CITIES, TAGS
+from sentences import CITIES, TAGS, SENTENCES
 from text_format import checkNegation
+from random import choice
 
 
 class Bot:
@@ -10,14 +11,9 @@ class Bot:
 
     def memorize(self, tag: str, result: str):
         self.__memory[tag] = result
-        print(self.__memory)
+        # print(self.__memory)
 
     def getPreferedCities(self):
-        # maxValue = self.__citiesPreferences[0]['preference']
-        # preferedCities = [self.__citiesPreferences[0]]
-        # for i in range(1, len(self.__citiesPreferences)):
-        #     if self.__citiesPreferences[i]['preference'] == maxValue:
-        #         preferedCities.append(self.__citiesPreferences[i])
         return self.__preferedCities
 
     def setPreferedCities(self):
@@ -66,10 +62,14 @@ class Bot:
         return False
 
     def talk(self, userText):
-        if self.canSuggest():
+        if not userText:
+            print('BOT>', SENTENCES['bonjour'], sep='')
+        elif self.canSuggest():
             print('BOT>Je peux vous proposer', end=' ')
             for index, city in enumerate(self.__preferedCities):
                 print(city['city']['where'], end=' ')
                 if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
                     print('ou', end=' ')
             print()
+        else:
+            print('BOT>', choice(SENTENCES['react_to_proposition']), sep='')

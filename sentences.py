@@ -1,5 +1,14 @@
 """ ALL WHITESPACE BEFORE WORDS ARE VERY IMPORTANT, DO NOT DELETE THEM"""
 
+SENTENCES = {
+    'bonjour': 'Bonjour, que puis-je faire pour vous ?',
+    'react_to_proposition': [
+        'Dites m\'en plus sur vos attentes',
+        'Je vois, quelque chose d\'autre ?',
+        'C\'est noté. Quoi d\'autres ?'
+    ]
+}
+
 TAGS = {
     'urbain': 'urbain',
     'rural': 'rural',
