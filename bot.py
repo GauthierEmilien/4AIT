@@ -60,12 +60,14 @@ class Bot:
                 if (value in sentence):
                     self.memorize(key, neg)
                     self.__hasUnderstand = True
+
             if not self.__hasUnderstand:
                 self.__detectedCity = ''
                 self.__wantDescription = False
                 for city in self.__preferedCities:
                     if city['city']['where'] in sentence:
                         self.__detectedCity = city['city']['where']
+
                 for word in DESCRIPTION_WORDS:
                     if word in sentence and self.__detectedCity:
                         self.__wantDescription = True

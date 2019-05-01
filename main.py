@@ -1,9 +1,7 @@
-from sentences import SENTENCES
-from text_format import formatText, checkNegation, detectMultipleConjunction, flattenList
+from text_format import formatText, detectMultipleConjunction, flattenList
 from bot import Bot
-from numpy import array
 from random import choice
-import re
+# import re
 
 bot = Bot()
 
