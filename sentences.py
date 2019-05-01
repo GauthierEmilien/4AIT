@@ -10,6 +10,8 @@ SENTENCES = {
     ]
 }
 
+DESCRIPTION_WORDS = ['dites', 'savoir', 'plus', 'dire', 'info', 'informations']
+
 TAGS = {
     'urbain': 'urbain',
     'rural': 'rural',

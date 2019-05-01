@@ -10,7 +10,6 @@ bot = Bot()
 
 def main():
     # print(re.findall(r'\{(.[^\{])*\}', SENTENCES['bonjour']))
-    # print(choice(SENTENCES['react_to_proposition']))
     # print(SENTENCES['bonjour'].format('emilien', ''))
     userTalk()
 
@@ -20,9 +19,9 @@ def userTalk():
     sentences: [str] = []
 
     while userText != 'quitter':
-        hasUnderstand = bot.detectRule(sentences)
+        bot.detectRule(sentences)
         bot.setPreferedCities()
-        bot.talk(userText, hasUnderstand)
+        bot.talk(userText)
 
         userText = str(input("> "))
         formattedText = formatText(userText)

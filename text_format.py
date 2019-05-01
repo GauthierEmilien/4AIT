@@ -3,7 +3,7 @@ import unidecode
 import string
 
 
-# format user entry (unaccented, no punctuation)
+# format user entry (unaccented, no punctuation, lowercase)
 def formatText(text: str):
     unaccentedStr = ' '.join(unidecode.unidecode(text).split("'"))
     formattedStr = unaccentedStr.translate(

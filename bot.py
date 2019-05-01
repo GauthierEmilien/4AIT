@@ -1,5 +1,5 @@
 from operator import itemgetter
-from sentences import CITIES, TAGS, SENTENCES
+from sentences import CITIES, TAGS, SENTENCES, DESCRIPTION_WORDS
 from text_format import checkNegation
 from random import choice
 
@@ -8,6 +8,9 @@ class Bot:
     def __init__(self):
         self.__memory: dict = {}
         self.__preferedCities = []
+        self.__hasUnderstand = False
+        self.__detectedCity = ''
+        self.__wantDescription = False
 
     def memorize(self, tag: str, result: str):
         self.__memory[tag] = result
@@ -50,23 +53,37 @@ class Bot:
         #             memorize(tag, True)
 
         # second way (works better)
-        detectedTag = False
+        self.__hasUnderstand = False
         for sentence in sentences:
             neg = checkNegation(sentence.split(' '))
             for key, value in TAGS.items():
                 if (value in sentence):
                     self.memorize(key, neg)
-                    detectedTag = True
-        return detectedTag
+                    self.__hasUnderstand = True
+            if not self.__hasUnderstand:
+                self.__detectedCity = ''
+                self.__wantDescription = False
+                for city in self.__preferedCities:
+                    if city['city']['where'] in sentence:
+                        self.__detectedCity = city['city']['where']
+                for word in DESCRIPTION_WORDS:
+                    if word in sentence and self.__detectedCity:
+                        self.__wantDescription = True
 
     def canSuggest(self):
         if len(self.__preferedCities) <= 2:
             return True
         return False
 
-    def talk(self, userText: str, hasUnderstand: bool):
+    def talk(self, userText: str):
         if not userText:
             print('BOT>', SENTENCES['bonjour'], sep='')
+        elif self.__wantDescription:
+            for city in self.__preferedCities:
+                if self.__detectedCity == city['city']['where']:
+                    print(city['city']['where'], 'description')
+        elif not self.__hasUnderstand:
+            print('BOT>', SENTENCES['not_understand'], sep='')
         elif self.canSuggest():
             print('BOT>Je peux vous proposer', end=' ')
             for index, city in enumerate(self.__preferedCities):
@@ -74,7 +91,5 @@ class Bot:
                 if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
                     print('ou', end=' ')
             print()
-        elif not hasUnderstand:
-            print('BOT>', SENTENCES['not_understand'], sep='')
         else:
             print('BOT>', choice(SENTENCES['react_to_proposition']), sep='')
