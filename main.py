@@ -19,7 +19,7 @@ def userTalk():
         bot.setPreferedCities()
         bot.talk(userText)
 
-        userText = str(input("> "))
+        userText = str(input("YOU> "))
         formattedText = formatText(userText)
         sentences = flattenList(detectMultipleConjunction(formattedText), [])
 

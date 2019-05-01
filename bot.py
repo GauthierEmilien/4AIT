@@ -79,19 +79,19 @@ class Bot:
 
     def talk(self, userText: str):
         if not userText:
-            print('BOT>', SENTENCES['bonjour'], sep='')
+            print('BOT>', SENTENCES['bonjour'])
         elif self.__wantDescription:
             for city in self.__preferedCities:
                 if self.__detectedCity == city['city']['where']:
-                    print('BOT>', city['city']['description'], sep='')
+                    print('BOT>', city['city']['description'])
         elif not self.__hasUnderstand:
-            print('BOT>', SENTENCES['not_understand'], sep='')
+            print('BOT>', SENTENCES['not_understand'])
         elif self.canSuggest():
-            print('BOT>Je peux vous proposer', end=' ')
+            print('BOT> Je peux vous proposer', end=' ')
             for index, city in enumerate(self.__preferedCities):
                 print(city['city']['where'].capitalize(), end=' ')
                 if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
                     print('ou', end=' ')
             print()
         else:
-            print('BOT>', choice(SENTENCES['react_to_proposition']), sep='')
+            print('BOT>', choice(SENTENCES['react_to_proposition']))
