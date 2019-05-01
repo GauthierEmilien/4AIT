@@ -67,7 +67,7 @@ class Bot:
         elif self.canSuggest():
             print('BOT>Je peux vous proposer', end=' ')
             for index, city in enumerate(self.__preferedCities):
-                print(city['city']['where'], end=' ')
+                print(city['city']['where'].capitalize(), end=' ')
                 if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
                     print('ou', end=' ')
             print()
