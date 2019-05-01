@@ -1,7 +1,5 @@
-from text_format import formatText, detectMultipleConjunction, flattenList
 from bot import Bot
-from random import choice
-# import re
+from text_format import formatText, detectMultipleConjunction, flattenList
 
 bot = Bot()
 
