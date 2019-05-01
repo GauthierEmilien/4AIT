@@ -1,7 +1,8 @@
 from operator import itemgetter
+from random import choice
+
 from sentences import CITIES, TAGS, SENTENCES, DESCRIPTION_WORDS
 from text_format import checkNegation
-from random import choice
 
 
 class Bot:

@@ -1,6 +1,8 @@
-from sentences import CONJUNCTION, NEGATION
-import unidecode
 import string
+
+import unidecode
+
+from sentences import CONJUNCTION, NEGATION
 
 
 # format user entry (unaccented, no punctuation, lowercase)
