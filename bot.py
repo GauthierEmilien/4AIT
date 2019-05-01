@@ -50,18 +50,21 @@ class Bot:
         #             memorize(tag, True)
 
         # second way (works better)
+        detectedTag = False
         for sentence in sentences:
             neg = checkNegation(sentence.split(' '))
             for key, value in TAGS.items():
                 if (value in sentence):
                     self.memorize(key, neg)
+                    detectedTag = True
+        return detectedTag
 
     def canSuggest(self):
         if len(self.__preferedCities) <= 2:
             return True
         return False
 
-    def talk(self, userText):
+    def talk(self, userText: str, hasUnderstand: bool):
         if not userText:
             print('BOT>', SENTENCES['bonjour'], sep='')
         elif self.canSuggest():
@@ -71,5 +74,7 @@ class Bot:
                 if len(self.__preferedCities) > 1 and index < len(self.__preferedCities) - 1:
                     print('ou', end=' ')
             print()
+        elif not hasUnderstand:
+            print('BOT>', SENTENCES['not_understand'], sep='')
         else:
             print('BOT>', choice(SENTENCES['react_to_proposition']), sep='')

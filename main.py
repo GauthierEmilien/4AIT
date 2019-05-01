@@ -1,4 +1,4 @@
-from sentences import SENTENCES 
+from sentences import SENTENCES
 from text_format import formatText, checkNegation, detectMultipleConjunction, flattenList
 from bot import Bot
 from numpy import array
@@ -20,9 +20,9 @@ def userTalk():
     sentences: [str] = []
 
     while userText != 'quitter':
-        bot.detectRule(sentences)
+        hasUnderstand = bot.detectRule(sentences)
         bot.setPreferedCities()
-        bot.talk(userText)
+        bot.talk(userText, hasUnderstand)
 
         userText = str(input("> "))
         formattedText = formatText(userText)

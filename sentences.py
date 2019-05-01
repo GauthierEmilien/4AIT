@@ -2,6 +2,7 @@
 
 SENTENCES = {
     'bonjour': 'Bonjour, que puis-je faire pour vous ?',
+    'not_understand': 'Désolé, je ne comprends pas',
     'react_to_proposition': [
         'Dites m\'en plus sur vos attentes',
         'Je vois, quelque chose d\'autre ?',
