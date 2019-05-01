@@ -1,7 +1,5 @@
 import string
-
 import unidecode
-
 from sentences import CONJUNCTION, NEGATION
 
 

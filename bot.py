@@ -1,6 +1,5 @@
 from operator import itemgetter
 from random import choice
-
 from sentences import CITIES, TAGS, SENTENCES, DESCRIPTION_WORDS
 from text_format import checkNegation
 
@@ -84,7 +83,7 @@ class Bot:
         elif self.__wantDescription:
             for city in self.__preferedCities:
                 if self.__detectedCity == city['city']['where']:
-                    print(city['city']['where'], 'description')
+                    print('BOT>', city['city']['description'], sep='')
         elif not self.__hasUnderstand:
             print('BOT>', SENTENCES['not_understand'], sep='')
         elif self.canSuggest():
