@@ -5,8 +5,6 @@ bot = Bot()
 
 
 def main():
-    # print(re.findall(r'\{(.[^\{])*\}', SENTENCES['bonjour']))
-    # print(SENTENCES['bonjour'].format('emilien', ''))
     userTalk()
 
 

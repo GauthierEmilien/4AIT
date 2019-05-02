@@ -23,6 +23,7 @@ def detectMultipleConjunction(text: str):
 
 
 # prend une liste a N dimension et la retourne en liste a une seule dimension
+# take a N dimension list and return it in one dimension
 def flattenList(ndlist: list, outputList: list):
     for elem in ndlist:
         if isinstance(elem, list):

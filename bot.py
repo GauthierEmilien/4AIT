@@ -14,11 +14,11 @@ class Bot:
 
     def memorize(self, tag: str, result: str):
         self.__memory[tag] = result
-        # print(self.__memory)
 
     def getPreferedCities(self):
         return self.__preferedCities
 
+    # sort cities in preference order according to the user
     def setPreferedCities(self):
         citiesPreferences = []
         for city in CITIES:
@@ -42,17 +42,8 @@ class Bot:
             if citiesPreferences[i]['preference'] == maxValue:
                 self.__preferedCities.append(citiesPreferences[i])
 
+    # detect key words in user sentences
     def detectRule(self, sentences: [str]):
-        # first way
-        # for word in text.split(' '):
-        #     print('word => ', word)
-        #     for tag, value in TAGS.items():
-
-        #         # TODO add REGEX here
-        #         if (value == word):
-        #             memorize(tag, True)
-
-        # second way (works better)
         self.__hasUnderstand = False
         for sentence in sentences:
             neg = checkNegation(sentence.split(' '))
@@ -61,6 +52,7 @@ class Bot:
                     self.memorize(key, neg)
                     self.__hasUnderstand = True
 
+            # if bot doesn't found tag word in sentence, check if user ask for city description
             if not self.__hasUnderstand:
                 self.__detectedCity = ''
                 self.__wantDescription = False
@@ -72,11 +64,13 @@ class Bot:
                     if word in sentence and self.__detectedCity:
                         self.__wantDescription = True
 
+    # if the bot memorized enough tags
     def canSuggest(self):
         if len(self.__preferedCities) <= 2:
             return True
         return False
 
+    # print what the bot has to say according to user entry
     def talk(self, userText: str):
         if not userText:
             print('BOT>', SENTENCES['bonjour'])
